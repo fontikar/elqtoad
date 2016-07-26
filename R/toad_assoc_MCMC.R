@@ -46,12 +46,12 @@ prior.test1<- list(R = list(V =1, nu = 0.002), G = list(G1 = list(V = diag(2), n
 
 #Running log latency model with interaction
 
-toad_lat.1 <- MCMCglmm(log.latency ~ sex*trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =2000000, thin = 5000, prior=prior.test1, burnin = 10000, data=toadassoc, verbose = T)
+toad_lat.1 <- MCMCglmm(log.latency ~ sex*trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =2000000, thin = 1000, prior=prior.test1, burnin = 10000, data=toadassoc, verbose = T)
 
 saveRDS(toad_lat.1, file="output/toad_lat.1")
 
 #Running log latency model without interaction
 
-toad_lat.wo <- MCMCglmm(log.latency ~ sex+trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =2000000, thin = 5000, prior=prior.test1, burnin = 10000, data=toadassoc, verbose = T)
+toad_lat.wo <- MCMCglmm(log.latency ~ sex+trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =2000000, thin = 1000, prior=prior.test1, burnin = 10000, data=toadassoc, verbose = T)
 
 saveRDS(toad_lat.wo , file="output/toad_lat.wo")
