@@ -29,13 +29,13 @@ prior.test<- list(R = list(V =1,fix=1, nu = 0.002), G = list(G1 = list(V = diag(
 
 #Running probability of making correct choice with interaction
 
-adjuv_rev_probcor.1<-MCMCglmm(choice ~ sex*trial, random = ~us(1+trial):toad.id, family = "categorical", nitt = 2000000, thin = 1000, prior=prior.test, burnin = 15000, data=adjuv.rev, verbose= T)
+adjuv_rev_probcor.1<-MCMCglmm(choice ~ age*trial, random = ~us(1+trial):toad.id, family = "categorical", nitt = 2000000, thin = 1000, prior=prior.test, burnin = 15000, data=adjuv.rev, verbose= T)
 
 saveRDS(adjuv_rev_probcor.1, file="output/adjuv_rev_probcormod.1")
 
 #Running probability of making correct choice without interaction
 
-adjuv_rev_probcor.wo <-MCMCglmm(choice ~ sex+trial, random = ~us(1+trial):toad.id, family = "categorical", nitt = 2000000, thin = 1000, prior=prior.test, burnin = 15000, data=adjuv.rev, verbose= T)
+adjuv_rev_probcor.wo <-MCMCglmm(choice ~ age+trial, random = ~us(1+trial):toad.id, family = "categorical", nitt = 2000000, thin = 1000, prior=prior.test, burnin = 15000, data=adjuv.rev, verbose= T)
 
 saveRDS(adjuv_rev_probcor.wo, file="output/adjuv_rev_probcormod.wo")
 
@@ -45,13 +45,13 @@ prior.test1<- list(R = list(V =1, nu = 0.002), G = list(G1 = list(V = diag(2), n
 
 #Running log latency model with interaction
 
-adjuv_rev_lat.1 <- MCMCglmm(log.latency ~ sex*trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =2000000, thin = 1000, prior=prior.test1, burnin = 10000, data=adjuv.rev, verbose = T)
+adjuv_rev_lat.1 <- MCMCglmm(log.latency ~ age*trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =2000000, thin = 1000, prior=prior.test1, burnin = 10000, data=adjuv.rev, verbose = T)
 
 saveRDS(adjuv_rev_lat.1, file="output/adjuv_rev_lat.1")
 
 #Running log latency model without interaction
 
-adjuv_rev_lat.wo <- MCMCglmm(log.latency ~ sex+trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =2000000, thin = 1000, prior=prior.test1, burnin = 10000, data=adjuv.rev, verbose = T)
+adjuv_rev_lat.wo <- MCMCglmm(log.latency ~ age+trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =2000000, thin = 1000, prior=prior.test1, burnin = 10000, data=adjuv.rev, verbose = T)
 
 saveRDS(adjuv_rev_lat.wo, file="output/adjuv_rev_lat.wo")
 
