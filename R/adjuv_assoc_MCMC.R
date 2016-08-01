@@ -25,7 +25,7 @@ adjuv.assoc$learnt <- as.factor(adjuv.assoc$learnt)
 
 #Setting priors for probability models
 
-prior.test<- list(R = list(V =1,fix=1, nu = 0.002), G = list(G1 = list(V = diag(2), nu = 0.002)))
+prior.1<- list(R = list(V =1,fix=1, nu = 0.002), G = list(G1 = list(V = diag(2), nu = 0.002)))
 
 #Setting seeds for 3 independent chains
 
@@ -60,7 +60,7 @@ prior.test1 <- list(R = list(V =1, nu = 0.002), G = list(G1 = list(V = diag(2), 
 adjuv_lat.1 <- list()
   for(i in 1:3){
   set.seed(chains[i])
-    adjuv_lat.1[[i]] <- MCMCglmm(log.latency ~ age*trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =110000, thin = 100, prior=prior.1, burnin = 10000, data=adjuv.assoc, verbose = T)
+    adjuv_lat.1[[i]] <- MCMCglmm(log.latency ~ age*trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =110000, thin = 100, prior=prior.test1, burnin = 10000, data=adjuv.assoc, verbose = T)
   }
 
 saveRDS(adjuv_lat.1, file="output/adjuv_assoc_lat.1")
@@ -70,7 +70,7 @@ saveRDS(adjuv_lat.1, file="output/adjuv_assoc_lat.1")
 adjuv_lat.wo <- list()
   for(i in 1:3){
   set.seed(chains[i])
-    adjuv_lat.wo[[i]] <- MCMCglmm(log.latency ~ age+trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =110000, thin = 100, prior=prior.1, burnin = 10000, data=adjuv.assoc, verbose = T)
+    adjuv_lat.wo[[i]] <- MCMCglmm(log.latency ~ age+trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =110000, thin = 100, prior=prior.test1, burnin = 10000, data=adjuv.assoc, verbose = T)
   }
 
 saveRDS(adjuv_lat.wo, file="output/adjuv_assoc_lat.wo")
