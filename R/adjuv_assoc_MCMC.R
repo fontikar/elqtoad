@@ -36,7 +36,7 @@ chains <- c(runif(3, 0, 100))
 adjuv_probcor.1 <- list()
  for(i in 1:3){
   set.seed(chains[i])
-<- MCMCglmm(choice ~ age*trial, random = ~us(1+trial):toad.id, family = "categorical", nitt = 2000000, thin = 1000, prior=prior.test, burnin = 15000, data=adjuv.assoc, verbose= T)
+   adjuv_probcor.1[[i]] <- MCMCglmm(choice ~ age*trial, random = ~us(1+trial):toad.id, family = "categorical", nitt = 2000000, thin = 1000, prior=prior.test, burnin = 15000, data=adjuv.assoc, verbose= T)
  }
 
 saveRDS(adjuv_probcor.1, file="output/adjuv_assoc_probcormod.1")
@@ -46,21 +46,21 @@ saveRDS(adjuv_probcor.1, file="output/adjuv_assoc_probcormod.1")
 adjuv_probcor.wo <- list()
  for(i in 1:3){
   set.seed(chains[i])
-<- MCMCglmm(choice ~ age+trial, random = ~us(1+trial):toad.id, family = "categorical", nitt = 2000000, thin = 1000, prior=prior.test, burnin = 15000, data=adjuv.assoc, verbose= T)
+   adjuv_probcor.wo[[i]] <- MCMCglmm(choice ~ age+trial, random = ~us(1+trial):toad.id, family = "categorical", nitt = 2000000, thin = 1000, prior=prior.test, burnin = 15000, data=adjuv.assoc, verbose= T)
  }
 
 saveRDS(adjuv_probcor.wo, file="output/adjuv_assoc_probcormod.wo")
 
 #Setting priors for latency model
 
-prior.test1<- list(R = list(V =1, nu = 0.002), G = list(G1 = list(V = diag(2), nu = 0.002)))
+prior.test1 <- list(R = list(V =1, nu = 0.002), G = list(G1 = list(V = diag(2), nu = 0.002)))
 
 #Running log latency model with interaction
 
 adjuv_lat.1 <- list()
   for(i in 1:3){
   set.seed(chains[i])
-<- MCMCglmm(log.latency ~ age*trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =2000000, thin = 1000, prior=prior.test1, burnin = 10000, data=adjuv.assoc, verbose = T)
+    adjuv_lat.1[[i]] <- MCMCglmm(log.latency ~ age*trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =2000000, thin = 1000, prior=prior.test1, burnin = 10000, data=adjuv.assoc, verbose = T)
   }
 
 saveRDS(adjuv_lat.1, file="output/adjuv_assoc_lat.1")
@@ -70,7 +70,7 @@ saveRDS(adjuv_lat.1, file="output/adjuv_assoc_lat.1")
 adjuv_lat.wo <- list()
   for(i in 1:3){
   set.seed(chains[i])
-<- MCMCglmm(log.latency ~ age+trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =2000000, thin = 1000, prior=prior.test1, burnin = 10000, data=adjuv.assoc, verbose = T)
+    adjuv_lat.wo[[i]] <- MCMCglmm(log.latency ~ age+trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =2000000, thin = 1000, prior=prior.test1, burnin = 10000, data=adjuv.assoc, verbose = T)
   }
 
 saveRDS(adjuv_lat.wo, file="output/adjuv_assoc_lat.wo")
