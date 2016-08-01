@@ -36,7 +36,7 @@ chains <- c(runif(3, 0, 100))
 adjuv_rev_probcor.1 <- list()
   for(i in 1:3){
   set.seed(chains[i])
-    adjuv_rev_probcor.1[[i]]<- MCMCglmm(choice ~ age*trial, random = ~us(1+trial):toad.id, family = "categorical", nitt = 2000000, thin = 1000, prior=prior.test, burnin = 15000, data=adjuv.rev, verbose= T)
+    adjuv_rev_probcor.1[[i]]<- MCMCglmm(choice ~ age*trial, random = ~us(1+trial):toad.id, family = "categorical", nitt = 110000, thin = 100, prior=prior.1, burnin = 10000, data=adjuv.rev, verbose= T)
   }
 
 saveRDS(adjuv_rev_probcor.1, file="output/adjuv_rev_probcormod.1")
@@ -46,7 +46,7 @@ saveRDS(adjuv_rev_probcor.1, file="output/adjuv_rev_probcormod.1")
 adjuv_rev_probcor.wo <- list()
   for(i in 1:3){
   set.seed(chains[i])
-    adjuv_rev_probcor.wo[[i]]<- MCMCglmm(choice ~ age+trial, random = ~us(1+trial):toad.id, family = "categorical", nitt = 2000000, thin = 1000, prior=prior.test, burnin = 15000, data=adjuv.rev, verbose= T)
+    adjuv_rev_probcor.wo[[i]]<- MCMCglmm(choice ~ age+trial, random = ~us(1+trial):toad.id, family = "categorical", nitt = 110000, thin = 100, prior=prior.1, burnin = 10000, data=adjuv.rev, verbose= T)
   } 
 
 saveRDS(adjuv_rev_probcor.wo, file="output/adjuv_rev_probcormod.wo")
@@ -60,7 +60,7 @@ prior.test1<- list(R = list(V =1, nu = 0.002), G = list(G1 = list(V = diag(2), n
 adjuv_rev_lat.1 <- list()
   for(i in 1:3){
   set.seed(chains[i])
-    adjuv_rev_lat.1[[i]] <- MCMCglmm(log.latency ~ age*trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =2000000, thin = 1000, prior=prior.test1, burnin = 10000, data=adjuv.rev, verbose = T)
+    adjuv_rev_lat.1[[i]] <- MCMCglmm(log.latency ~ age*trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =110000, thin = 100, prior=prior.1, burnin = 10000, data=adjuv.rev, verbose = T)
   } 
 
 saveRDS(adjuv_rev_lat.1, file="output/adjuv_rev_lat.1")
@@ -70,7 +70,7 @@ saveRDS(adjuv_rev_lat.1, file="output/adjuv_rev_lat.1")
 adjuv_rev_lat.wo <- list()
   for(i in 1:3){
   set.seed(chains[i])
-    adjuv_rev_lat.wo[[i]]<- MCMCglmm(log.latency ~ age+trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =2000000, thin = 1000, prior=prior.test1, burnin = 10000, data=adjuv.rev, verbose = T)
+    adjuv_rev_lat.wo[[i]]<- MCMCglmm(log.latency ~ age+trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =110000, thin = 100, prior=prior.1, burnin = 10000, data=adjuv.rev, verbose = T)
   }
 
 saveRDS(adjuv_rev_lat.wo, file="output/adjuv_rev_lat.wo")
