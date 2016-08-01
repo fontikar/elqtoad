@@ -26,19 +26,31 @@ toadassoc$learnt <- as.factor(toadassoc$learnt)
 
 #Setting priors for probability models
 
-prior.test<- list(R = list(V =1,fix=1, nu = 0.002), G = list(G1 = list(V = diag(2), nu = 0.002)))
+prior.1<- list(R = list(V =1,fix=1, nu = 0.002), G = list(G1 = list(V = diag(2), nu = 0.002)))
 
-#Running probability of making correct choice with interaction
+#Setting seeds for 3 independent chains
 
-toad_probcor.1<-MCMCglmm(choice ~ sex*trial, random = ~us(1+trial):toad.id, family = "categorical", nitt = 2000000, thin = 1000, prior=prior.test, burnin = 15000, data=toadassoc, verbose= T)
+chains <- c(runif(3, 0, 100))
+
+#Running 3 chains for probability of making correct choice with interaction #prior 1
+
+toad_probcor.1 <- list()
+  for(i in 1:3){
+  set.seed(chains[i])
+    toad_probcor.1[[i]] <- MCMCglmm(choice ~ sex*trial, random = ~us(1+trial):toad.id, family = "categorical", nitt = 110000, thin = 100, prior=prior.1, burnin = 10000, data=toadassoc, verbose= T)
+  }
 
 saveRDS(toad_probcor.1, file="output/toad_probcormod.1")
 
-#Running probability of making correct choice without interaction
+#Running probability of making correct choice without interaction #prior 1
 
-toad_probcor.wo <-MCMCglmm(choice ~ sex+trial, random = ~us(1+trial):toad.id, family = "categorical", nitt = 2000000, thin = 1000, prior=prior.test, burnin = 15000, data=toadassoc, verbose= T)
+toad_probcor.wo.1 <- list()
+  for(i in 1:3){
+  set.seed(chains[i])
+  toad_probcor.wo.1[[i]] <- MCMCglmm(choice ~ sex+trial, random = ~us(1+trial):toad.id, family = "categorical", nitt = 110000, thin = 100, prior=prior.1, burnin = 10000, data=toadassoc, verbose= T)
+  }
 
-saveRDS(toad_probcor.wo, file="output/toad_probcormod.wo")
+saveRDS(toad_probcor.wo.1, file="output/toad_probcormod.wo.1")
 
 #Setting priors for latency model
 
@@ -46,12 +58,20 @@ prior.test1<- list(R = list(V =1, nu = 0.002), G = list(G1 = list(V = diag(2), n
 
 #Running log latency model with interaction
 
-toad_lat.1 <- MCMCglmm(log.latency ~ sex*trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =2000000, thin = 1000, prior=prior.test1, burnin = 10000, data=toadassoc, verbose = T)
+toad_lat.1 <- list()
+for(i in 1:3){
+  set.seed(chains[i])
+  toad_lat.1[[i]]<- MCMCglmm(log.latency ~ sex*trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt = 110000, thin = 100, prior=prior.1, burnin = 10000,, data=toadassoc, verbose = T)
+ }
 
 saveRDS(toad_lat.1, file="output/toad_lat.1")
 
 #Running log latency model without interaction
 
-toad_lat.wo <- MCMCglmm(log.latency ~ sex+trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =2000000, thin = 1000, prior=prior.test1, burnin = 10000, data=toadassoc, verbose = T)
+toad_lat.wo <- list()
+  for(i in 1:3){
+  set.seed(chains[i])
+    toad_lat.wo[[i]] <- MCMCglmm(log.latency ~ sex+trial, random = ~us(1+trial):toad.id, family = "gaussian", nitt =110000, thin = 100, prior=prior.1, burnin = 10000, data=toadassoc, verbose = T)
+  }
 
 saveRDS(toad_lat.wo , file="output/toad_lat.wo")
